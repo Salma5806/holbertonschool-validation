@@ -10,14 +10,17 @@ stop:  ## Stop:
 
 clean: ## Clean:
 	pkill awesome-api || true
-	rm -rf awesome-api awesome-api.log
+	rm -rf awesome-api awesome-api.log coverage-units.out coverage-integrations.out
 
 test:	## Test:
-	curl http://localhost:9999
-	curl http://localhost:9999/health
-
-unit-tests: ## Unit-tests:
 	go test -v -short -coverprofile=coverage-units.out
+	go test -v -tags=integration -coverprofile=coverage-integrations.out
+
+unit-tests:	## Unit-tests:
+	go test -v -short -coverprofile=coverage-units.out
+
+integration-tests:	## Integration-tests:
+	go test -v -tags=integration -coverprofile=coverage-integrations.out
 
 lint:	## Lint:
 	golangci-lint run
