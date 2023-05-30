@@ -22,7 +22,8 @@ clean: ## Stop the application, delete the binary, log, coverage files, and Hugo
 	rm -rf awesome-api awesome-api.log coverage-units.out coverage-integrations.out
 	rm -rf dist/
 
-test: unit-tests integration-tests ## Run both unit and integration tests for the Go application
+test: ## Run both unit and integration tests for the Go application
+	unit-tests integration-tests
 
 help: ## Displays the list of targets and their use
 	@grep -E -i ^[a-z] Makefile | sed 's/ markdown-check markdown-link-check//' | sed 's/ check//' | sed 's/ lint go-build hugo-build//' | sed 's/ unit-tests integration-tests//' | tr -d '##' | sort
@@ -34,7 +35,8 @@ unit-tests: ## Run Golang unit tests with code coverage
 integration-tests: ## Run Golang integration tests with code coverage
 	go test -v -coverprofile=coverage-integrations.out
 
-check: markdown-check markdown-link-check ## Check markdown files for dead links and linting issues
+check: ## Check markdown files for dead links and linting issues
+	markdown-check markdown-link-check
 
 markdown-check: ## Check markdown files for linting issues using markdownlint
 	markdownlint content/posts
